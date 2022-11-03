@@ -17,17 +17,17 @@ array.forEach((element) => {
         }
 
         if (allDead === 5) {
-            allDead = 0;
-            allLost = 0;
-            dead.textContent = allDead;
-            lost.textContent = allLost;
-            alert('Ты выйграл');
+            resetResult('Ты выйграл');
         } else if (allLost === 5) {
-            allDead = 0;
-            allLost = 0;
-            alert('Ты проиграл')
-            dead.textContent = allDead;
-            lost.textContent = allLost;
+            resetResult('Ты проиграл');
         }
     }
 })
+
+function resetResult (result) {
+    allDead = 0;
+    allLost = 0;
+    alert(result)
+    dead.textContent = allDead;
+    lost.textContent = allLost;
+}
