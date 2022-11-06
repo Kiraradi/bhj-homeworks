@@ -7,7 +7,9 @@ menuLink.forEach(element => {
     element.onclick = () => {
         if (menu) {
         menuSub.forEach(element => {
-            element.classList.remove("menu_active");
+            if(!menu.classList.contains("menu_active")){
+                element.classList.remove("menu_active");
+            } 
         })
         if (!menu.classList.contains("menu_active")) {
             menu.classList.add('menu_active');
@@ -23,7 +25,6 @@ menuLink.forEach(element => {
 })
 
 window.onclick = element => {
-    console.log(element.target.className)
     if (element.target.className ==='menu__link') {
        return
     }else {
