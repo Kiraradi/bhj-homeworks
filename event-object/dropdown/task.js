@@ -14,6 +14,7 @@ dropdownItem.forEach(element => {
     element.addEventListener('click', function(evt) {
         evt.preventDefault();
         dropdownValue.textContent = element.textContent;
+        dropdownList.classList.remove('dropdown__list_active');
     })
 })
 

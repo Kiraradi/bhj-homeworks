@@ -6,11 +6,8 @@ class Game {
     this.lossElement = container.querySelector('.status__loss');
     this.timer = container.querySelector('#timer');
     
-
     this.reset();
-
     this.registerEvents();
-    
   }
 
   reset() {
@@ -22,13 +19,12 @@ class Game {
   registerEvents() {
     document.addEventListener('keyup', (e) => {
       let elementDom = this.currentSymbol.textContent;
-      if (e.key.toLowerCase() === elementDom) {
+      if (e.key.toLowerCase() === elementDom.toLowerCase()) {
         this.success();
-      }else {
+      } else {
         this.fail();
       }
-    })
-   
+    });
   }
 
   success() {
@@ -55,42 +51,53 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
-
     this.renderWord(word);
-  }
-// реализация таймера
-  /*gettimer() {
-    this.symbol = Array.from(document.querySelectorAll('.symbol'))
-    let time = this.symbol.length
-    let interval = setInterval(() => {
 
-    if(time === 0) {
-      this.fail();
-      clearInterval(interval);
-    }else {
-      time--;
-      this.timer.textContent = `00:0${time}`;
-      console.log(time);
+    if (this.interval) {
+      clearInterval(this.interval);
     }
-    },1000)  
-  }*/
+
+    this.gettimer();
+  }
+
+  // реализация таймера
+  gettimer() {
+    this.symbol = Array.from(document.querySelectorAll('.symbol'))
+    let time = this.symbol.length;
+    this.timer.textContent = this.getDateString(time);
+
+    this.interval = setInterval(() => {
+      if (time === 0) {
+        this.fail();
+      } else {
+        time--;
+        this.timer.textContent = this.getDateString(time);
+      }}, 1000);
+  }
+
+  getDateString(seconds) {
+    var date = new Date(0);
+    date.setSeconds(seconds);
+    var timeString = date.toISOString().substring(11, 19);
+    return timeString;
+  }
 
   getWord() {
     const words = [
-        'bob',
-        'awesome',
-        'netology',
-        'hello',
-        'kitty',
-        'rock',
-        'youtube',
-        'popcorn',
-        'cinema',
-        'love',
-        'javascript'
-      ],
-      index = Math.floor(Math.random() * words.length);
-
+      'bob',
+      'awesome',
+      'netology',
+      'hello',
+      'kitty',
+      'rock',
+      'youtube',
+      'popcorn',
+      'cinema',
+      'love',
+      'javascript'
+    ],
+    
+    index = Math.floor(Math.random() * words.length);
     return words[index];
   }
 
@@ -104,9 +111,7 @@ class Game {
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
-    
   }
-  
 }
 
 new Game(document.getElementById('game'))
