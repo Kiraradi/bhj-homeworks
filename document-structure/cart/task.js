@@ -3,10 +3,12 @@ class Shop {
         this.container = container;
         this.cartProducts = container.querySelector('.cart__products');
         this.products = Array.from(container.querySelectorAll('.product'));
+        this.cartTitle = container.querySelector('.cart__title');
         this.trackStatusProducts();
     }
 
     trackStatusProducts() {
+        this.cartTitle.style = 'display:none';
         this.products.forEach(product => {
            const productQuantityControl = Array.from(product.querySelectorAll('.product__quantity-control'));
            const productImage = product.querySelector('.product__image')
@@ -36,6 +38,8 @@ class Shop {
     }
 
     addToCart(dataId,image,numberOfProducts) {
+        this.cartTitle.style = 'display:block';
+
         const cardsProduct = Array.from(this.cartProducts.querySelectorAll('.cart__product'));
         const idcard = cardsProduct.findIndex(card => card.dataset.id == dataId);
 
@@ -57,10 +61,28 @@ class Shop {
             cartProductCount.textContent = numberOfProducts;
             cardProduct.insertAdjacentElement('beforeend', cartProductCount);
 
-            this.cartProducts.insertAdjacentElement('beforeend', cardProduct); 
+            const deleteItem = document.createElement('div');
+            deleteItem.classList.add('delete__item');
+            deleteItem.textContent = 'x';
+            cardProduct.insertAdjacentElement('beforeend', deleteItem);
+
+            this.cartProducts.insertAdjacentElement('beforeend', cardProduct);
+            
+            deleteItem.addEventListener('click',() => {
+                this.deleteTheProductCard(dataId);
+            })
         }
 
         
+
+        
+    }
+    deleteTheProductCard(dataId) {
+        const cardsProduct = Array.from(this.cartProducts.querySelectorAll('.cart__product'));
+        const idcard = cardsProduct.findIndex(card => card.dataset.id == dataId);
+        if(idcard !== -1) {
+            cardsProduct.splice(idcard, 1);
+        }
     }
 }
 
