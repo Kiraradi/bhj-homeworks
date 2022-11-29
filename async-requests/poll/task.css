@@ -9,3 +9,12 @@ body {
 .poll__title {
   margin-bottom: 20px;
 }
+
+/* .poll__answers {
+  display: flex;
+  gap: 5px;
+} */
+.poll__answer {
+ 
+  margin: 5px;
+}

@@ -1,6 +1,5 @@
 class ExchangeRate {
     constructor(container) {
-        this.container = container;
         this.items = container.querySelector('#items');
         this.loader = document.querySelector('#loader');
         this.loadPage();
